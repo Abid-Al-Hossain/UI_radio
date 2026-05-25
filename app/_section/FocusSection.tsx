@@ -1,0 +1,48 @@
+"use client";
+
+import React from "react";
+import { SectionCard } from "@/components/shared/layout/ui";
+import ColorControl from "@/components/shared/color/ColorControl";
+import SizeControl from "@/components/shared/input/SizeControl";
+import { RadioState, RadioSetter } from "../types";
+
+const PRESET_COLORS = [
+  "#cbd5e1",
+  "#3b82f6",
+  "#ef4444",
+  "#10b981",
+  "#f59e0b",
+  "#6366f1",
+  "#ec4899",
+  "#000000",
+  "#ffffff",
+];
+
+export default function FocusSection({
+  state,
+  setKey,
+}: {
+  state: RadioState;
+  setKey: RadioSetter;
+}) {
+  return (
+    <SectionCard title="Focus" subtitle="Keyboard focus ring treatment.">
+      <div className="space-y-3">
+        <ColorControl
+          label="Ring Color"
+          palette={PRESET_COLORS}
+          value={state.focusRingColor}
+          onChange={setKey("focusRingColor")}
+        />
+        <SizeControl
+          label="Ring Width (px)"
+          value={state.focusRingWidth}
+          onChange={(v) => setKey("focusRingWidth")(v)}
+          min={0}
+          max={8}
+          step={1}
+        />
+      </div>
+    </SectionCard>
+  );
+}
