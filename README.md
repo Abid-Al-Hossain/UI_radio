@@ -1,57 +1,106 @@
-# UI Foundry Radio Button Component Generator
+# UI Foundry Radio Component Generator
 
-Standalone visual radio-button generator built with Next.js.
+Standalone visual Radio generator built with Next.js, React, and TypeScript.
 
-This app is a focused radio-group studio for single-choice controls, branded option sets, and styled selection patterns that can be edited visually and exported as code.
+Radio group studio for option sets, selected states, group help/error semantics, orientation, card/list presentation, and WAI-aligned keyboard behavior.
+
+This project is packaged as an independent component studio for marketplace sale while following the same UI Foundry product language used by the button generator. It keeps local shared controls, local presets, local export utilities, and no runtime dependency on another component app.
 
 ## Product summary
 
 This generator is designed for:
+- settings and onboarding UI builders
+- developers creating accessible choice groups
+- buyers who need radio systems beyond a single browser default
 
-- designers building forms, surveys, pricing selectors, and settings panels
-- developers who want editable radio-group styling without rebuilding the component by hand
-- freelancers and agencies preparing branded choice controls for client interfaces
-- buyers who want a standalone radio-button tool consistent with the UI Foundry suite
+The intended workflow is:
+
+1. choose a preset or start from the default state
+2. edit the component through sectioned controls
+3. inspect the live preview in the shared dark studio canvas
+4. switch to code view when needed
+5. copy or download the generated React output
 
 ## What the product includes
 
-- section-based editing controls
+- standalone Next.js app structure
+- section-based editor shell
+- local shared controls for color, typography, inputs, sliders, switches, sections, and preview/download panels
 - live preview panel
 - code view with copy support
-- file export support
-- searchable preset library
-- generated premium preset catalog with filters, paging, and surprise-me apply
-- undo and redo controls
-- self-contained standalone app structure
-- native metadata and description controls for real radio-group authoring
+- React-only export path
+- download filename control
+- preview background controls
+- preset application flow with full-state updates
+- accessibility and state-preview guidance where native to the component
+- self-contained package files for independent repo publishing
 
-## Editing coverage
+## Native editing surface
 
-The editor currently includes these control areas:
+The editor is focused on controls that are native to Radio and useful in real product work:
+- group name, option values, default selected option, disabled options, and orientation controls
+- label, description, helper, error, success, and validation message composition
+- radio indicator, selected state, hover, focus, active, disabled, density, and card/list presentation
+- WAI-style group semantics and keyboard behavior expectations
+- preview/code/export alignment for selected and disabled states
 
-- Presets
-- Basics
-- Metadata
-- Appearance
-- States
-- Description & Messages
-- Typography
-- Effects
-- Accessibility
+The goal is maximum useful depth without adding unrelated controls that would make the component stop reading as Radio.
 
-These sections cover option setup, native metadata, visual styling, checked and disabled states, description and support messages, label typography, effects, and accessibility metadata.
+## Preset model
+
+Presets are treated as full editor states, not just color swaps. The suite-wide preset contract is:
+
+- family
+- archetype
+- variant
+- size
+- tags
+- state
+
+Applying a preset should update the complete editable state and reset transient preview state so the preview and export stay aligned.
 
 ## Export workflow
 
-The preview and code output follow the same current radio-group state so the exported result matches the visual editor closely.
+The shipped export contract is React-only. The live preview, visible code, copied code, and downloaded file are expected to come from the same current React payload so users do not see one result and export another.
 
-## Why this product is useful
+## Consistency contract
 
-This is more than a fixed radio control. It is a reusable single-choice component studio for branded form and preference UI.
+This studio is intentionally structured to be both independently sellable and merge-ready for a future UI Foundry SaaS product:
 
-## Tech
+- no runtime imports from button-component
+- no runtime imports from shared-templates
+- no runtime imports from another component studio
+- common editing tasks use the same local control patterns as the button canon
+- shared state names such as previewResetKey, previewBgMode, previewBgInput, and downloadName are preserved where applicable
+
+## Tech stack
 
 - Next.js
 - React
 - TypeScript
+- Tailwind CSS
+- local component/editor utilities
 
+## Commands
+
+    npm install
+    npm run typecheck
+    npm run lint -- --quiet
+    npm run build
+    npm run dev
+
+## Verification checklist
+
+Before publishing a new version, verify:
+
+- install completes without dependency errors
+- typecheck passes
+- lint has no blocking errors
+- production build completes
+- preview and generated React code match
+- copied code and downloaded code match the visible code
+- no generated node_modules, .next, or build artifacts are committed
+
+## Repository
+
+This repo is intended to publish as Abid-Al-Hossain/UI_radio.
