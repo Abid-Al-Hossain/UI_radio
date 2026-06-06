@@ -149,7 +149,7 @@ export default function PresetsSection({ state, presets, onApply }: Props) {
                     <button type="button" onClick={() => onApply(preset)} className="rounded-xl px-3 py-2 text-xs font-semibold uf-clickable" style={{ background: active ? "var(--primary)" : "color-mix(in oklab, var(--primary) 18%, transparent)", color: active ? "#fff" : "var(--primary)" }}>{active ? "Applied" : "Apply"}</button>
                   </div>
                   <div className="mt-4 flex flex-wrap gap-2">
-                    {preset.tags.map((tag) => <Chip key={tag}>{tag}</Chip>)}
+                    {preset.tags.map((tag, tagIndex) => <Chip key={`${tag}-${tagIndex}`}>{tag}</Chip>)}
                   </div>
                 </article>
               );
