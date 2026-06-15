@@ -81,6 +81,12 @@ export default function StylingSection({
             value={state.selectedOuterBorderColor}
             onChange={setKey("selectedOuterBorderColor")}
           />
+          <ColorControl
+            label="Background Color"
+            palette={PRESET_COLORS}
+            value={state.selectedOuterBgColor}
+            onChange={setKey("selectedOuterBgColor")}
+          />
           <SizeControl
             label="Dot Size (px)"
             value={state.dotSize}

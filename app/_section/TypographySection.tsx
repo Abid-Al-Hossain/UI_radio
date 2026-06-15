@@ -1,6 +1,7 @@
 import React from "react";
 import { SectionCard } from "@/components/shared/layout/ui";
 import ColorControl from "@/components/shared/color/ColorControl";
+import SizeControl from "@/components/shared/input/SizeControl";
 import TypographyControl from "@/components/shared/typography/TypographyControl";
 import {
   SYSTEM_FONTS,
@@ -81,6 +82,14 @@ export default function TypographySection({
             ]}
             value={state.labelColor}
             onChange={setKey("labelColor")}
+          />
+          <SizeControl
+            label="Label gap (px)"
+            value={state.labelGap}
+            onChange={(v) => setKey("labelGap")(v)}
+            min={0}
+            max={24}
+            step={1}
           />
         </div>
       </div>
