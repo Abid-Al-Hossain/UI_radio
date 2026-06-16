@@ -55,6 +55,7 @@ export default function LivePreview({
         role={state.role || "radiogroup"}
         aria-label={state.ariaLabel || state.name}
         aria-required={state.ariaRequired || undefined}
+        aria-invalid={Boolean(state.errorText) || undefined}
         aria-describedby={[
           descriptionId,
           helperId,
@@ -133,20 +134,29 @@ export default function LivePreview({
                   height: state.outerSize,
                   borderWidth: state.outerBorderWidth,
                   borderStyle: state.outerBorderStyle,
-                  borderColor: isHovered
+                  borderColor: opt.disabled && state.disabledUseCustomColors
+                    ? state.disabledBorderColor
+                    : state.errorText
+                    ? state.errorBorderColor
+                    : isHovered
                     ? state.hoverBorderColor
                     : isSelected
                     ? state.selectedOuterBorderColor
                     : state.outerBorderColor,
                   borderRadius: "50%",
-                  backgroundColor: isHovered
+                  backgroundColor: opt.disabled && state.disabledUseCustomColors
+                    ? state.disabledBgColor
+                    : state.errorText
+                    ? state.errorBgColor
+                    : isHovered
                     ? state.hoverBgColor
                     : isSelected
                     ? state.selectedOuterBgColor
                     : state.outerBgColor,
-                  boxShadow: isFocused
+                  boxShadow: isFocused && state.focusRingEnabled
                     ? `0 0 0 ${state.focusRingWidth}px ${state.focusRingColor}`
                     : boxShadow,
+                  outlineOffset: isFocused && state.focusRingEnabled ? state.focusRingOffset : undefined,
                   transition,
                   flexShrink: 0,
                 }}
@@ -157,7 +167,11 @@ export default function LivePreview({
                     width: state.dotSize,
                     height: state.dotSize,
                     borderRadius: "50%",
-                    backgroundColor: state.dotColor,
+                    backgroundColor: opt.disabled && state.disabledUseCustomColors
+                      ? state.disabledDotColor
+                      : isHovered && !isSelected
+                      ? state.hoverDotColor
+                      : state.dotColor,
                     transition,
                     ...dotAnim,
                   }}
@@ -168,7 +182,7 @@ export default function LivePreview({
                   fontFamily,
                   fontSize: `${state.labelFontSize}${state.fontSizeUnit}`,
                   fontWeight: state.labelFontWeight,
-                  color: state.labelColor,
+                  color: opt.disabled && state.disabledUseCustomColors ? state.disabledTextColor : state.labelColor,
                   letterSpacing: `${state.labelLetterSpacing}${state.letterSpacingUnit}`,
                   lineHeight: state.labelLineHeight,
                   fontStyle: state.labelFontStyle,

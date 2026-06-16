@@ -51,6 +51,12 @@ export default function StatesSection({
             value={state.hoverBgColor}
             onChange={setKey("hoverBgColor")}
           />
+          <ColorControl
+            label="Dot Preview Color"
+            palette={PRESET_COLORS}
+            value={state.hoverDotColor}
+            onChange={setKey("hoverDotColor")}
+          />
         </div>
 
         {/* Disabled */}
@@ -81,6 +87,62 @@ export default function StatesSection({
               ]}
             />
           </LabeledField>
+          <LabeledField label="Use Custom Colors">
+            <Segmented
+              value={state.disabledUseCustomColors ? "true" : "false"}
+              onChange={(v) => setKey("disabledUseCustomColors")(v === "true")}
+              items={[
+                { value: "false", label: "Off" },
+                { value: "true", label: "On" },
+              ]}
+            />
+          </LabeledField>
+          <ColorControl
+            label="Disabled Background"
+            palette={PRESET_COLORS}
+            value={state.disabledBgColor}
+            onChange={setKey("disabledBgColor")}
+          />
+          <ColorControl
+            label="Disabled Text"
+            palette={PRESET_COLORS}
+            value={state.disabledTextColor}
+            onChange={setKey("disabledTextColor")}
+          />
+          <ColorControl
+            label="Disabled Border"
+            palette={PRESET_COLORS}
+            value={state.disabledBorderColor}
+            onChange={setKey("disabledBorderColor")}
+          />
+          <ColorControl
+            label="Disabled Dot"
+            palette={PRESET_COLORS}
+            value={state.disabledDotColor}
+            onChange={setKey("disabledDotColor")}
+          />
+        </div>
+
+        {/* Error */}
+        <div className="pt-4 border-t border-slate-700/50 space-y-3">
+          <div
+            className="text-xs font-semibold uppercase tracking-wider"
+            style={{ color: "var(--muted)" }}
+          >
+            Validation
+          </div>
+          <ColorControl
+            label="Error Border"
+            palette={PRESET_COLORS}
+            value={state.errorBorderColor}
+            onChange={setKey("errorBorderColor")}
+          />
+          <ColorControl
+            label="Error Background"
+            palette={PRESET_COLORS}
+            value={state.errorBgColor}
+            onChange={setKey("errorBgColor")}
+          />
         </div>
       </div>
     </SectionCard>

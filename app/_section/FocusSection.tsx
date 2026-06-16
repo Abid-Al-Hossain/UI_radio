@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { SectionCard } from "@/components/shared/layout/ui";
+import { SectionCard, LabeledField, Segmented } from "@/components/shared/layout/ui";
 import ColorControl from "@/components/shared/color/ColorControl";
 import SizeControl from "@/components/shared/input/SizeControl";
 import { RadioState, RadioSetter } from "../types";
@@ -28,6 +28,16 @@ export default function FocusSection({
   return (
     <SectionCard title="Focus" subtitle="Keyboard focus ring treatment.">
       <div className="space-y-3">
+        <LabeledField label="Enabled">
+          <Segmented
+            value={state.focusRingEnabled ? "true" : "false"}
+            onChange={(v) => setKey("focusRingEnabled")(v === "true")}
+            items={[
+              { value: "false", label: "Off" },
+              { value: "true", label: "On" },
+            ]}
+          />
+        </LabeledField>
         <ColorControl
           label="Ring Color"
           palette={PRESET_COLORS}
@@ -38,6 +48,14 @@ export default function FocusSection({
           label="Ring Width (px)"
           value={state.focusRingWidth}
           onChange={(v) => setKey("focusRingWidth")(v)}
+          min={0}
+          max={8}
+          step={1}
+        />
+        <SizeControl
+          label="Ring Offset (px)"
+          value={state.focusRingOffset}
+          onChange={(v) => setKey("focusRingOffset")(v)}
           min={0}
           max={8}
           step={1}

@@ -44,16 +44,24 @@ export type RadioState = {
   transitionEasing: TransitionEasing;
 
   // ── Focus ──
+  focusRingEnabled: boolean;
   focusRingColor: string;
   focusRingWidth: number;
+  focusRingOffset: number;
 
   // ── Hover ──
   hoverBorderColor: string;
   hoverBgColor: string;
+  hoverDotColor: string;
 
   // ── Disabled ──
   disabledOpacity: number;
   disabledCursor: "not-allowed" | "default";
+  disabledUseCustomColors: boolean;
+  disabledBgColor: string;
+  disabledTextColor: string;
+  disabledBorderColor: string;
+  disabledDotColor: string;
 
   // ── Label Typography ──
   fontBucket: "system" | "google";
@@ -97,6 +105,8 @@ export type RadioState = {
   helperColor: string;
   errorText: string;
   errorColor: string;
+  errorBorderColor: string;
+  errorBgColor: string;
   successText: string;
   successColor: string;
 
@@ -139,14 +149,22 @@ export const INITIAL_STATE: RadioState = {
   transitionDuration: 200,
   transitionEasing: "ease",
 
+  focusRingEnabled: true,
   focusRingColor: "#3b82f6",
   focusRingWidth: 3,
+  focusRingOffset: 2,
 
   hoverBorderColor: "#3b82f6",
   hoverBgColor: "#eff6ff",
+  hoverDotColor: "#60a5fa",
 
   disabledOpacity: 0.5,
   disabledCursor: "not-allowed",
+  disabledUseCustomColors: false,
+  disabledBgColor: "#e2e8f0",
+  disabledTextColor: "#94a3b8",
+  disabledBorderColor: "#cbd5e1",
+  disabledDotColor: "#cbd5e1",
 
   // ── Label Typography ──
   fontBucket: "system",
@@ -189,6 +207,8 @@ export const INITIAL_STATE: RadioState = {
   helperColor: "#64748b",
   errorText: "",
   errorColor: "#ef4444",
+  errorBorderColor: "#ef4444",
+  errorBgColor: "#fef2f2",
   successText: "",
   successColor: "#10b981",
 

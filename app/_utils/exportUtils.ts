@@ -45,12 +45,20 @@ export function buildRadioExportPayload(params: RadioExportInput) {
     animationType: params.animationType,
     transitionDuration: params.transitionDuration,
     transitionEasing: params.transitionEasing,
+    focusRingEnabled: params.focusRingEnabled,
     focusRingColor: params.focusRingColor,
     focusRingWidth: params.focusRingWidth,
+    focusRingOffset: params.focusRingOffset,
     hoverBorderColor: params.hoverBorderColor,
     hoverBgColor: params.hoverBgColor,
+    hoverDotColor: params.hoverDotColor,
     disabledOpacity: params.disabledOpacity,
     disabledCursor: params.disabledCursor,
+    disabledUseCustomColors: params.disabledUseCustomColors,
+    disabledBgColor: params.disabledBgColor,
+    disabledTextColor: params.disabledTextColor,
+    disabledBorderColor: params.disabledBorderColor,
+    disabledDotColor: params.disabledDotColor,
     fontFamily: resolveFontFamily(params),
     labelFontSize: params.labelFontSize,
     fontSizeUnit: params.fontSizeUnit,
@@ -85,6 +93,8 @@ export function buildRadioExportPayload(params: RadioExportInput) {
     helperColor: params.helperColor,
     errorText: params.errorText,
     errorColor: params.errorColor,
+    errorBorderColor: params.errorBorderColor,
+    errorBgColor: params.errorBgColor,
     successText: params.successText,
     successColor: params.successColor,
   };
@@ -111,6 +121,7 @@ export default function RadioGroupComponent() {
       role={CONFIG.role || "radiogroup"}
       aria-label={CONFIG.ariaLabel || CONFIG.name}
       aria-required={CONFIG.ariaRequired || undefined}
+      aria-invalid={Boolean(CONFIG.errorText) || undefined}
       aria-describedby={[descriptionId, helperId, errorId, successId, CONFIG.ariaDescribedBy]
         .filter(Boolean)
         .join(" ") || undefined}
@@ -184,18 +195,27 @@ export default function RadioGroupComponent() {
                 height: CONFIG.outerSize,
                 borderWidth: CONFIG.outerBorderWidth,
                 borderStyle: CONFIG.outerBorderStyle,
-                borderColor: isHovered
+                borderColor: isDisabled && CONFIG.disabledUseCustomColors
+                  ? CONFIG.disabledBorderColor
+                  : CONFIG.errorText
+                  ? CONFIG.errorBorderColor
+                  : isHovered
                   ? CONFIG.hoverBorderColor
                   : isSelected
                     ? CONFIG.selectedOuterBorderColor
                     : CONFIG.outerBorderColor,
                 borderRadius: "50%",
-                backgroundColor: isHovered
+                backgroundColor: isDisabled && CONFIG.disabledUseCustomColors
+                  ? CONFIG.disabledBgColor
+                  : CONFIG.errorText
+                  ? CONFIG.errorBgColor
+                  : isHovered
                   ? CONFIG.hoverBgColor
                   : isSelected
                     ? CONFIG.selectedOuterBgColor
                     : CONFIG.outerBgColor,
-                boxShadow: isFocused ? "0 0 0 " + CONFIG.focusRingWidth + "px " + CONFIG.focusRingColor : boxShadow,
+                boxShadow: isFocused && CONFIG.focusRingEnabled ? "0 0 0 " + CONFIG.focusRingWidth + "px " + CONFIG.focusRingColor : boxShadow,
+                outlineOffset: isFocused && CONFIG.focusRingEnabled ? CONFIG.focusRingOffset : undefined,
                 transition,
                 flexShrink: 0,
               }}
@@ -206,7 +226,11 @@ export default function RadioGroupComponent() {
                   width: CONFIG.dotSize,
                   height: CONFIG.dotSize,
                   borderRadius: "50%",
-                  backgroundColor: CONFIG.dotColor,
+                  backgroundColor: isDisabled && CONFIG.disabledUseCustomColors
+                    ? CONFIG.disabledDotColor
+                    : isHovered && !isSelected
+                    ? CONFIG.hoverDotColor
+                    : CONFIG.dotColor,
                   ...dotStyle,
                 }}
               />
@@ -216,7 +240,7 @@ export default function RadioGroupComponent() {
                 fontFamily: CONFIG.fontFamily,
                 fontSize: CONFIG.labelFontSize + CONFIG.fontSizeUnit,
                 fontWeight: CONFIG.labelFontWeight,
-                color: CONFIG.labelColor,
+                color: isDisabled && CONFIG.disabledUseCustomColors ? CONFIG.disabledTextColor : CONFIG.labelColor,
                 letterSpacing: CONFIG.labelLetterSpacing + CONFIG.letterSpacingUnit,
                 lineHeight: CONFIG.labelLineHeight,
                 fontStyle: CONFIG.labelFontStyle,
