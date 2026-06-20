@@ -1,14 +1,17 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { RadioState } from "../types";
 import { clamp, norm } from "@/components/shared/color/colorUtils";
+import { ensureReadable } from "@/components/shared/color/wcag";
 import { SYSTEM_FONTS } from "@/components/shared/typography/fontConstants";
 
 export default function LivePreview({
   state,
   resetKey = 0,
+  canvasBg = "#0b1220",
 }: {
   state: RadioState;
   resetKey?: number;
+  canvasBg?: string;
 }) {
   const [hoveredIndex, setHoveredIndex] = useState(-1);
   const [focusedIndex, setFocusedIndex] = useState(-1);
@@ -182,7 +185,7 @@ export default function LivePreview({
                   fontFamily,
                   fontSize: `${state.labelFontSize}${state.fontSizeUnit}`,
                   fontWeight: state.labelFontWeight,
-                  color: opt.disabled && state.disabledUseCustomColors ? state.disabledTextColor : state.labelColor,
+                  color: opt.disabled && state.disabledUseCustomColors ? state.disabledTextColor : ensureReadable(state.labelColor, canvasBg),
                   letterSpacing: `${state.labelLetterSpacing}${state.letterSpacingUnit}`,
                   lineHeight: state.labelLineHeight,
                   fontStyle: state.labelFontStyle,
