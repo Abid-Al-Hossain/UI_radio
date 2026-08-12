@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { RadioState } from "../types";
 import { clamp, norm } from "@/components/shared/color/colorUtils";
 import { ensureReadable } from "@/components/shared/color/wcag";
@@ -43,11 +43,6 @@ export default function LivePreview({
     }
     return state.options.find((opt) => !opt.disabled)?.value ?? "";
   }, [state.options, state.selectedValue]);
-
-  useEffect(() => {
-    setHoveredIndex(-1);
-    setFocusedIndex(-1);
-  }, [resetKey]);
 
   return (
     <div
